@@ -1,0 +1,72 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "حذف فئة";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h3>
+                        <i class="bi bi-exclamation-triangle"></i> حذف فئة
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <strong>تحذير!</strong> هل أنت متأكد من حذف هذه الفئة؟
+                    </div>
+
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            <i class="bi bi-bookmark"></i> اسم الفئة:
+                        </dt>
+                        <dd class="col-sm-9">
+                            <strong>@Model.Name</strong>
+                        </dd>
+
+                        <dt class="col-sm-3">
+                            <i class="bi bi-text-paragraph"></i> الوصف:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Model.Description
+                        </dd>
+
+                        <dt class="col-sm-3">
+                            <i class="bi bi-box-seam"></i> عدد الأصناف:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @if (Model.MenuItems != null && Model.MenuItems.Any())
+                            {
+                                <span class="badge bg-danger fs-6">@Model.MenuItems.Count صنف</span>
+                                <br />
+                                <small class="text-danger">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    تحذير: سيتم حذف جميع الأصناف المرتبطة بهذه الفئة!
+                                </small>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">0</span>
+                            }
+                        </dd>
+                    </dl>
+
+                    <form asp-action="Delete" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> إلغاء
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> تأكيد الحذف
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

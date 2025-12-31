@@ -1,0 +1,56 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "إضافة فئة جديدة";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h3>
+                        <i class="bi bi-plus-circle"></i> إضافة فئة جديدة
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">
+                                <i class="bi bi-bookmark"></i> اسم الفئة
+                            </label>
+                            <input asp-for="Name" class="form-control" placeholder="مثال: مقبلات، أطباق رئيسية..." />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">
+                                <i class="bi bi-text-paragraph"></i> الوصف
+                            </label>
+                            <textarea asp-for="Description" class="form-control" rows="3"
+                                      placeholder="وصف مختصر للفئة..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> إلغاء
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> حفظ الفئة
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
