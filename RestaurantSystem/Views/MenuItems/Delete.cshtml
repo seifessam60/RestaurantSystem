@@ -1,0 +1,97 @@
+﻿@model RestaurantSystem.Models.MenuItem
+
+@{
+    ViewData["Title"] = "حذف صنف";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h3>
+                        <i class="bi bi-exclamation-triangle"></i> حذف صنف
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <strong>تحذير!</strong> هل أنت متأكد من حذف هذا الصنف؟ هذا الإجراء لا يمكن التراجع عنه.
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@(Model.ImageUrl ?? "https://picsum.photos/400/300?random=" + Model.Id)"
+                                 class="img-fluid rounded shadow-sm"
+                                 alt="@Model.Name">
+                        </div>
+                        <div class="col-md-8">
+                            <dl class="row">
+                                <dt class="col-sm-4">
+                                    <i class="bi bi-card-heading"></i> اسم الصنف:
+                                </dt>
+                                <dd class="col-sm-8">
+                                    <strong>@Model.Name</strong>
+                                </dd>
+
+                                <dt class="col-sm-4">
+                                    <i class="bi bi-bookmark"></i> الفئة:
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Model.Category?.Name
+                                </dd>
+
+                                <dt class="col-sm-4">
+                                    <i class="bi bi-text-paragraph"></i> الوصف:
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Model.Description
+                                </dd>
+
+                                <dt class="col-sm-4">
+                                    <i class="bi bi-cash"></i> السعر:
+                                </dt>
+                                <dd class="col-sm-8">
+                                    <span class="text-success fw-bold">@Model.Price.ToString("C")</span>
+                                </dd>
+
+                                <dt class="col-sm-4">
+                                    <i class="bi bi-check-circle"></i> الحالة:
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.IsAvailable)
+                                    {
+                                        <span class="badge bg-success">متوفر</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">غير متوفر</span>
+                                    }
+                                </dd>
+
+                                <dt class="col-sm-4">
+                                    <i class="bi bi-calendar"></i> تاريخ الإضافة:
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Model.CreatedAt.ToString("dd/MM/yyyy")
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> إلغاء
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> تأكيد الحذف
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
