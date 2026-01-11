@@ -1,0 +1,101 @@
+﻿@model MenuItem
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>
+            <i class="bi bi-info-circle text-primary"></i> تفاصيل الصنف
+        </h1>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                <i class="bi bi-pencil"></i> تعديل
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> العودة
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <img src="@(Model.ImageUrl ?? "https://picsum.photos/600/400?random=" + Model.Id)"
+                     class="card-img-top"
+                     alt="@Model.Name"
+                     style="max-height: 400px; object-fit: cover;">
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h2 class="card-title mb-3">@Model.Name</h2>
+
+                    <div class="mb-3">
+                        <span class="badge bg-primary fs-6">
+                            <i class="bi bi-bookmark"></i> @Model.Category?.Name
+                        </span>
+                        @if (Model.IsAvailable)
+                        {
+                            <span class="badge bg-success fs-6">
+                                <i class="bi bi-check-circle"></i> متوفر
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger fs-6">
+                                <i class="bi bi-x-circle"></i> غير متوفر
+                            </span>
+                        }
+                    </div>
+
+                    <hr />
+
+                    <h4 class="mb-3">الوصف:</h4>
+                    <p class="lead text-muted">
+                        @(Model.Description ?? "لا يوجد وصف متاح")
+                    </p>
+
+                    <hr />
+
+                    <div class="mb-3">
+                        <h3 class="text-success">
+                            <i class="bi bi-cash-stack"></i> @Model.Price.ToString("C")
+                        </h3>
+                    </div>
+
+                    <hr />
+
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">
+                            <i class="bi bi-calendar-plus"></i> تاريخ الإضافة:
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.CreatedAt.ToString("dd/MM/yyyy - hh:mm tt")
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <i class="bi bi-hash"></i> رقم الصنف:
+                        </dt>
+                        <dd class="col-sm-8">
+                            #@Model.Id
+                        </dd>
+                    </dl>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg">
+                            <i class="bi bi-pencil-square"></i> تعديل الصنف
+                        </a>
+                        <a asp-controller="Categories" asp-action="Details" asp-route-id="@Model.CategoryId"
+                           class="btn btn-outline-primary">
+                            <i class="bi bi-eye"></i> عرض كل أصناف @Model.Category?.Name
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
